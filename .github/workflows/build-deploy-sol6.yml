@@ -60,12 +60,12 @@ jobs:
           password: ${{ secrets.ACR_PASSWORD }}
           # Server address of Docker registry. If not set then will default to Docker Hub
           registry: ${{ env.registryName }}
-
-      - name: Docker build
-        run: docker build -t ${{secrets.ACR_NAME}}/$repositoryName:$tag --build-arg build_version=$tag $dockerfilePath
-
+      
+      - name: Docker Build
+        run: docker build -t $registryName/$repositoryName:$tag --build-arg build_version=$tag $dockerFolderPath
+      
       - name: Docker Push
-        run: docker push ${{secrets.ACR_NAME}}/$repositoryName:$tag
+        run: docker push $registryName/$repositoryName:$tag
             
   deploy-to-dev:
     runs-on: ubuntu-latest
