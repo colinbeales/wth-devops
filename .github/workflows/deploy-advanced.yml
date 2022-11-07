@@ -26,7 +26,7 @@ jobs:
     - name: Run ARM deploy
       uses: azure/arm-deploy@v1
       with:
-        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
         resourceGroupName: ${{ secrets.AZURE_RG }}
         template: ./ARM-Templates/container-webapp-template.json
-        parameters: webAppName=WTHApp-${{ github.event.inputs.appenv }}
+        parameters: webAppName=colinb-WTHApp-${{ github.event.inputs.appenv }}
