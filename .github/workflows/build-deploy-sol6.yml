@@ -77,7 +77,7 @@ jobs:
 
       - uses: azure/webapps-deploy@v2
         with:
-          app-name: 'devopsreg-dev'
+          app-name: 'colinb-WTHApp-dev'
           images: ${{secrets.ACR_NAME}}/wth/razorcore:${{github.run_number}}
 
   deploy-to-test:
@@ -97,7 +97,7 @@ jobs:
 
     - uses: azure/webapps-deploy@v2
       with:
-        app-name: 'devopsreg-test'
+        app-name: 'colinb-WTHApp-test'
         images: ${{secrets.ACR_NAME}}/wth/razorcore:${{github.run_number}}
 
   deploy-to-prod:
@@ -117,5 +117,5 @@ jobs:
 
     - uses: azure/webapps-deploy@v2
       with:
-        app-name: 'devopsreg-prod'
+        app-name: 'colinb-WTHApp-prod'
         images: ${{secrets.ACR_NAME}}/wth/razorcore:${{github.run_number}}
