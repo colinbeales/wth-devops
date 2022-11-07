@@ -9,7 +9,7 @@ on:
         - test
         - prod
 
-name: Azure ARM
+name: Azure ARM-Advanced
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
