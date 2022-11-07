@@ -1,7 +1,7 @@
 name: CI, Docker Build-Publish and CD
 
 env:
-  registryName: devopsreg.azurecr.io
+  registryName: colinbdevopsreg.azurecr.io
   repositoryName: wth/razorcore
   dockerfilePath: Application/src/RazorPagesTestSample
   tag: ${{github.run_number}}
@@ -53,14 +53,14 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: Azure Container Registry Login
-        uses: Azure/docker-login@v1
+        uses: Azure/docker-login@v2
         with:
           # Container registry username
           username: ${{ secrets.ACR_USERNAME }}
           # Container registry password
           password: ${{ secrets.ACR_PASSWORD }}
-          # Container registry server url
-          login-server: ${{ secrets.ACR_NAME }}
+          # Server address of Docker registry. If not set then will default to Docker Hub
+          registry: ${{ env.registryName }}
 
       - name: Docker build
         run: docker build -t ${{secrets.ACR_NAME}}/$repositoryName:$tag --build-arg build_version=$tag $dockerfilePath
