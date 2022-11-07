@@ -2,7 +2,7 @@ on:
   workflow_dispatch
 
 env:
-  targetEnv: Dev
+  targetEnv: dev
 
 name: Azure ARM
 jobs:
