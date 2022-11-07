@@ -1,4 +1,4 @@
-name: .NET CI
+name: .NET CI and Docker Build-Push
 
 env:
   registryName: colinbdevopsreg.azurecr.io
