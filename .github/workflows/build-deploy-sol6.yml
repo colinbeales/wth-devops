@@ -78,7 +78,7 @@ jobs:
       - uses: azure/webapps-deploy@v2
         with:
           app-name: 'colinb-WTHApp-dev'
-          images: ${{secrets.ACR_NAME}}/wth/razorcore:${{github.run_number}}
+          images: ${{env.registryName}}/wth/razorcore:${{github.run_number}}
 
   deploy-to-test:
     runs-on: ubuntu-latest
@@ -98,7 +98,7 @@ jobs:
     - uses: azure/webapps-deploy@v2
       with:
         app-name: 'colinb-WTHApp-test'
-        images: ${{secrets.ACR_NAME}}/wth/razorcore:${{github.run_number}}
+        images: ${{env.registryName}}/wth/razorcore:${{github.run_number}}
 
   deploy-to-prod:
     runs-on: ubuntu-latest
@@ -118,4 +118,4 @@ jobs:
     - uses: azure/webapps-deploy@v2
       with:
         app-name: 'colinb-WTHApp-prod'
-        images: ${{secrets.ACR_NAME}}/wth/razorcore:${{github.run_number}}
+        images: ${{env.registryName}}/wth/razorcore:${{github.run_number}}
