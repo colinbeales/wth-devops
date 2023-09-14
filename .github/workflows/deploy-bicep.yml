@@ -4,7 +4,7 @@ on:
 env:
   targetEnv: dev
 
-name: Azure ARM
+name: Azure Bicep
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
