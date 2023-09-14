@@ -1,18 +1,16 @@
-// Please change this for uniqueness vs other hack teams (i.e. ddmmyyteamx) lowercase, no spaces, no special characters
-// var prefix = '280923team1'
-@description('Name of the web app')
+@description('Environment of the web app')
 param environment string = 'dev'
 
 @description('Location of services')
 param location string = resourceGroup().location
 
 var webAppName = '${uniqueString(resourceGroup().id)}-${environment}'
-var appServicePlanName = '${uniqueString(resourceGroup().id)}-devops-asp'
-var appInsightsName = '${uniqueString(resourceGroup().id)}-devops-ai'
+var appServicePlanName = '${uniqueString(resourceGroup().id)}-wth-asp'
+var appInsightsName = '${uniqueString(resourceGroup().id)}-wth-ai'
 var sku = 'S1'
-var registryName = '${uniqueString(resourceGroup().id)}devopsreg'
+var registryName = '${uniqueString(resourceGroup().id)}wthreg'
 var registrySku = 'Standard'
-var imageName = '${uniqueString(resourceGroup().id)}devopsimage'
+var imageName = 'wthimage'
 var startupCommand = ''
 
 
@@ -56,7 +54,7 @@ resource appServiceApp 'Microsoft.Web/sites@2020-12-01' = {
     httpsOnly: true
     clientAffinityEnabled: false
     siteConfig: {
-      linuxFxVersion: 'DOCKER|${containerRegistry.name}.azurecr.io/${webAppName}/${imageName}'
+      linuxFxVersion: 'DOCKER|${containerRegistry.name}.azurecr.io/${uniqueString(resourceGroup().id)}/${imageName}'
       http20Enabled: true
       minTlsVersion: '1.2'
       appCommandLine: startupCommand
@@ -76,10 +74,6 @@ resource appServiceApp 'Microsoft.Web/sites@2020-12-01' = {
         {
           name: 'DOCKER_REGISTRY_SERVER_PASSWORD'
           value: containerRegistry.listCredentials().passwords[0].value
-        }
-        {
-          name: 'WEBSITES_PORT'
-          value: '8080'
         }
         {
           name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
