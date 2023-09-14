@@ -1,20 +1,18 @@
 // Please change this for uniqueness vs other hack teams (i.e. ddmmyyteamx) lowercase, no spaces, no special characters
-var prefix = '280923team1'
-
-var defaultTags = {
-  Team: prefix
-}
+// var prefix = '280923team1'
+@description('Name of the web app')
+param environment string = 'dev'
 
 @description('Location of services')
 param location string = resourceGroup().location
 
-var webAppName = '${prefix}devops-dev'
-var appServicePlanName = '${prefix}devops-asp'
-var appInsightsName = '${prefix}devops-ai'
+var webAppName = '${uniqueString(resourceGroup().id)}-${environment}'
+var appServicePlanName = '${uniqueString(resourceGroup().id)}-devops-asp'
+var appInsightsName = '${uniqueString(resourceGroup().id)}-devops-ai'
 var sku = 'S1'
-var registryName = '${prefix}devopsreg'
+var registryName = '${uniqueString(resourceGroup().id)}devopsreg'
 var registrySku = 'Standard'
-var imageName = '${prefix}devopsimage'
+var imageName = '${uniqueString(resourceGroup().id)}devopsimage'
 var startupCommand = ''
 
 
@@ -25,13 +23,11 @@ resource appInsights 'Microsoft.Insights/components@2020-02-02-preview' = {
   properties: {
     Application_Type: 'web'
   }
-  tags: defaultTags
 }
 
 resource containerRegistry 'Microsoft.ContainerRegistry/registries@2020-11-01-preview' = {
   name: registryName
   location: location
-  tags: defaultTags
   sku: {
     name: registrySku
   }
@@ -43,7 +39,6 @@ resource containerRegistry 'Microsoft.ContainerRegistry/registries@2020-11-01-pr
 resource appServicePlan 'Microsoft.Web/serverFarms@2020-12-01' = {
   name: appServicePlanName
   location: location
-  tags: defaultTags
   kind: 'linux'
   properties: {
     reserved: true
@@ -56,7 +51,6 @@ resource appServicePlan 'Microsoft.Web/serverFarms@2020-12-01' = {
 resource appServiceApp 'Microsoft.Web/sites@2020-12-01' = {
   name: webAppName
   location: location
-  tags: defaultTags
   properties: {
     serverFarmId: appServicePlan.id
     httpsOnly: true
