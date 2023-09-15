@@ -1,7 +1,7 @@
 name: CI, Docker Build-Publish and CD
 
 env:
-  registryName: colinbdevopsreg.azurecr.io
+  registryName: 2kt7722cmbw4swthreg.azurecr.io
   repositoryName: wth/dotnetcoreapp
   dockerFolderPath: ./Application/src/RazorPagesTestSample
   tag: ${{github.run_number}}
@@ -69,7 +69,7 @@ jobs:
     needs: dockerBuildPush
     environment:
       name: dev
-      url: https://colinb-WTHApp-dev.azurewebsites.net/
+      url: https://2kt7722cmbw4s-dev.azurewebsites.net/
     
     steps:
       - name: 'Login via Azure CLI'
@@ -79,7 +79,7 @@ jobs:
 
       - uses: azure/webapps-deploy@v2
         with:
-          app-name: 'colinb-WTHApp-dev'
+          app-name: '2kt7722cmbw4s-dev'
           images: ${{env.registryName}}/${{env.repositoryName}}:${{github.run_number}}
 
   deploy-to-test:
@@ -87,7 +87,7 @@ jobs:
     needs: deploy-to-dev
     environment:
       name: test
-      url: https://colinb-WTHApp-test.azurewebsites.net/
+      url: https://2kt7722cmbw4s-test.azurewebsites.net/
     
     steps:
     - uses: actions/checkout@v2
@@ -99,7 +99,7 @@ jobs:
 
     - uses: azure/webapps-deploy@v2
       with:
-        app-name: 'colinb-WTHApp-test'
+        app-name: '2kt7722cmbw4s-test'
         images: ${{env.registryName}}/${{env.repositoryName}}:${{github.run_number}}
 
   deploy-to-prod:
@@ -107,7 +107,7 @@ jobs:
     needs: deploy-to-test
     environment:
       name: prod
-      url: https://colinb-WTHApp-prod.azurewebsites.net/
+      url: https://2kt7722cmbw4s-prod.azurewebsites.net/
     
     steps:
     - uses: actions/checkout@v2
@@ -119,5 +119,5 @@ jobs:
 
     - uses: azure/webapps-deploy@v2
       with:
-        app-name: 'colinb-WTHApp-prod'
+        app-name: '2kt7722cmbw4s-prod'
         images: ${{env.registryName}}/${{env.repositoryName}}:${{github.run_number}}
