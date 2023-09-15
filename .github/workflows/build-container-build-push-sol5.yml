@@ -1,7 +1,7 @@
 name: .NET CI and Docker Build-Push
 
 env:
-  registryName: colinbdevopsreg.azurecr.io
+  registryName: 2kt7722cmbw4swthreg.azurecr.io
   repositoryName: wth/dotnetcoreapp
   dockerFolderPath: ./Application/src/RazorPagesTestSample
   tag: ${{github.run_number}}
